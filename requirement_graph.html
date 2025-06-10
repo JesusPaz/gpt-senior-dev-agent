@@ -1,0 +1,250 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 750px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+             #loadingBar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width: 100%;
+                 height: 750px;
+                 background-color:rgba(200,200,200,0.8);
+                 -webkit-transition: all 0.5s ease;
+                 -moz-transition: all 0.5s ease;
+                 -ms-transition: all 0.5s ease;
+                 -o-transition: all 0.5s ease;
+                 transition: all 0.5s ease;
+                 opacity:1;
+             }
+
+             #bar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width:20px;
+                 height:20px;
+                 margin:auto auto auto auto;
+                 border-radius:11px;
+                 border:2px solid rgba(30,30,30,0.05);
+                 background: rgb(0, 173, 246); /* Old browsers */
+                 box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+             }
+
+             #border {
+                 position:absolute;
+                 top:10px;
+                 left:10px;
+                 width:500px;
+                 height:23px;
+                 margin:auto auto auto auto;
+                 box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+                 border-radius:10px;
+             }
+
+             #text {
+                 position:absolute;
+                 top:8px;
+                 left:530px;
+                 width:30px;
+                 height:50px;
+                 margin:auto auto auto auto;
+                 font-size:22px;
+                 color: #000000;
+             }
+
+             div.outerBorder {
+                 position:relative;
+                 top:400px;
+                 width:600px;
+                 height:44px;
+                 margin:auto auto auto auto;
+                 border:8px solid rgba(0,0,0,0.1);
+                 background: rgb(252,252,252); /* Old browsers */
+                 background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+                 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+                 background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+                 background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+                 background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+                 background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+                 border-radius:72px;
+                 box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+             }
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+            <div id="loadingBar">
+              <div class="outerBorder">
+                <div id="text">0%</div>
+                <div id="border">
+                  <div id="bar"></div>
+                </div>
+              </div>
+            </div>
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#97c2fc", "id": "R0", "label": "root", "shape": "dot", "title": "Root endpoint to verify the API is running."}, {"color": "#97c2fc", "id": "R1", "label": "health_check", "shape": "dot", "title": "Health check endpoint to verify the API is running."}, {"color": "#97c2fc", "id": "R2", "label": "load_config", "shape": "dot", "title": "Load configuration from environment variables.\n\nReturns:\n    A dictionary containing configuration settings"}, {"color": "#97c2fc", "id": "R3", "label": "Database", "shape": "dot", "title": ""}, {"color": "#97c2fc", "id": "R4", "label": "__init__", "shape": "dot", "title": "Initialize the database connection with the given configuration.\n\nArgs:\n    config: Configuration dictionary containing database connection settings"}, {"color": "#97c2fc", "id": "R5", "label": "_get_connection", "shape": "dot", "title": "Get a connection to the database.\n\nReturns:\n    A database connection"}, {"color": "#97c2fc", "id": "R6", "label": "_create_tables", "shape": "dot", "title": "Create the necessary tables if they don\u0027t exist."}, {"color": "#97c2fc", "id": "R7", "label": "save_thought", "shape": "dot", "title": "Save a thought to the database.\n\nArgs:\n    original_text: The original thought text\n    analysis_result: The analysis result from the text analyzer\n    \nReturns:\n    The ID of the saved thought, or No"}, {"color": "#97c2fc", "id": "R8", "label": "get_thought", "shape": "dot", "title": "Get a thought from the database by ID.\n\nArgs:\n    thought_id: The ID of the thought to get\n    \nReturns:\n    A dictionary containing the thought data, or None if not found"}, {"color": "#97c2fc", "id": "R9", "label": "get_thoughts", "shape": "dot", "title": "Get multiple thoughts from the database.\n\nArgs:\n    limit: Maximum number of thoughts to return\n    offset: Number of thoughts to skip\n    \nReturns:\n    A list of dictionaries containing thought data"}, {"color": "#97c2fc", "id": "R10", "label": "create_procedure", "shape": "dot", "title": "Create a new procedure in the database.\n\nArgs:\n    title: The title of the procedure\n    description: Optional description of the procedure\n    trigger_phrases: Optional list of trigger phrases\n    \nR"}, {"color": "#97c2fc", "id": "R11", "label": "get_procedures", "shape": "dot", "title": "Get multiple procedures from the database.\n\nArgs:\n    limit: Maximum number of procedures to return\n    offset: Number of procedures to skip\n    \nReturns:\n    A list of dictionaries containing procedu"}, {"color": "#97c2fc", "id": "R12", "label": "get_procedure", "shape": "dot", "title": "Get a procedure by ID with its steps.\n\nArgs:\n    procedure_id: The ID of the procedure to get\n    \nReturns:\n    A dictionary containing the procedure data, or None if not found"}, {"color": "#97c2fc", "id": "R13", "label": "add_procedure_step", "shape": "dot", "title": "Add a step to a procedure.\n\nArgs:\n    procedure_id: The ID of the procedure\n    content: The content of the step\n    order: The order of the step\n    \nReturns:\n    The ID of the created step, or None "}, {"color": "#97c2fc", "id": "R14", "label": "add_procedure_steps", "shape": "dot", "title": "Add multiple steps to a procedure.\n\nArgs:\n    procedure_id: The ID of the procedure\n    steps: List of step dictionaries with content and order\n    \nReturns:\n    List of created step IDs"}, {"color": "#97c2fc", "id": "R15", "label": "delete_thought", "shape": "dot", "title": "Delete a thought from the database.\n\nArgs:\n    thought_id: The ID of the thought to delete\n    \nReturns:\n    True if the thought was deleted, False otherwise"}, {"color": "#97c2fc", "id": "R16", "label": "delete_procedure", "shape": "dot", "title": "Delete a procedure and all its steps from the database.\n\nArgs:\n    procedure_id: The ID of the procedure to delete\n    \nReturns:\n    True if the procedure was deleted, False otherwise"}, {"color": "#97c2fc", "id": "R17", "label": "update_thought", "shape": "dot", "title": "Update a thought in the database.\n\nArgs:\n    thought_id: The ID of the thought to update\n    data: Dictionary containing the fields to update\n    \nReturns:\n    The updated thought data, or None if not"}, {"color": "#97c2fc", "id": "R18", "label": "update_procedure", "shape": "dot", "title": "Update a procedure in the database.\n\nArgs:\n    procedure_id: The ID of the procedure to update\n    title: The new title of the procedure\n    description: Optional new description of the procedure\n    "}, {"color": "#97c2fc", "id": "R19", "label": "update_procedure_step", "shape": "dot", "title": "Update a procedure step in the database.\n\nArgs:\n    step_id: The ID of the step to update\n    content: The new content of the step\n    order: Optional new order of the step\n    \nReturns:\n    The updat"}, {"color": "#97c2fc", "id": "R20", "label": "create_technical_decision", "shape": "dot", "title": "Create a new technical decision in the database.\n\nArgs:\n    title: The title of the technical decision\n    context: The context in which the decision was made\n    decision: The decision that was made\n"}, {"color": "#97c2fc", "id": "R21", "label": "get_technical_decisions", "shape": "dot", "title": "Get multiple technical decisions from the database.\n\nArgs:\n    limit: Maximum number of decisions to return\n    offset: Number of decisions to skip\n    tags: Optional list of tags to filter by\n    \nRe"}, {"color": "#97c2fc", "id": "R22", "label": "get_technical_decision", "shape": "dot", "title": "Get a technical decision by ID.\n\nArgs:\n    decision_id: The ID of the technical decision to get\n    \nReturns:\n    A dictionary containing the technical decision data, or None if not found"}, {"color": "#97c2fc", "id": "R23", "label": "update_technical_decision", "shape": "dot", "title": "Update a technical decision in the database.\n\nArgs:\n    decision_id: The ID of the technical decision to update\n    data: Dictionary containing the fields to update\n    \nReturns:\n    The updated techn"}, {"color": "#97c2fc", "id": "R24", "label": "delete_technical_decision", "shape": "dot", "title": "Delete a technical decision from the database.\n\nArgs:\n    decision_id: The ID of the technical decision to delete\n    \nReturns:\n    True if the technical decision was deleted, False otherwise"}, {"color": "#97c2fc", "id": "R25", "label": "create_experience", "shape": "dot", "title": "Create a new experience in the database.\n\nArgs:\n    title: The title of the experience\n    situation: The situation or problem faced\n    actions: The actions taken\n    outcome: The outcome of the acti"}, {"color": "#97c2fc", "id": "R26", "label": "get_experiences", "shape": "dot", "title": "Get multiple experiences from the database.\n\nArgs:\n    limit: Maximum number of experiences to return\n    offset: Number of experiences to skip\n    tags: Optional list of tags to filter by\n    importa"}, {"color": "#97c2fc", "id": "R27", "label": "get_experience", "shape": "dot", "title": "Get an experience by ID.\n\nArgs:\n    experience_id: The ID of the experience to get\n    \nReturns:\n    A dictionary containing the experience data, or None if not found"}, {"color": "#97c2fc", "id": "R28", "label": "update_experience", "shape": "dot", "title": "Update an experience in the database.\n\nArgs:\n    experience_id: The ID of the experience to update\n    data: Dictionary containing the fields to update\n    \nReturns:\n    The updated experience data, o"}, {"color": "#97c2fc", "id": "R29", "label": "delete_experience", "shape": "dot", "title": "Delete an experience from the database.\n\nArgs:\n    experience_id: The ID of the experience to delete\n    \nReturns:\n    True if the experience was deleted, False otherwise"}, {"color": "#97c2fc", "id": "R30", "label": "test_read_root", "shape": "dot", "title": "Test the root endpoint."}, {"color": "#97c2fc", "id": "R31", "label": "test_health_check", "shape": "dot", "title": "Test the health check endpoint."}, {"color": "#97c2fc", "id": "R32", "label": "ThoughtRequest", "shape": "dot", "title": "Schema for thought request data."}, {"color": "#97c2fc", "id": "R33", "label": "ThoughtResponse", "shape": "dot", "title": "Schema for thought response data."}, {"color": "#97c2fc", "id": "R34", "label": "ThoughtAnalysisResult", "shape": "dot", "title": "Schema for thought analysis result data."}, {"color": "#97c2fc", "id": "R35", "label": "ThoughtUpdate", "shape": "dot", "title": "Schema for updating a thought."}, {"color": "#97c2fc", "id": "R36", "label": "AlternativeOption", "shape": "dot", "title": "Schema for alternative options considered in a technical decision."}, {"color": "#97c2fc", "id": "R37", "label": "TechnicalDecisionBase", "shape": "dot", "title": "Base schema for technical decision data."}, {"color": "#97c2fc", "id": "R38", "label": "TechnicalDecisionCreate", "shape": "dot", "title": "Schema for creating a technical decision."}, {"color": "#97c2fc", "id": "R39", "label": "TechnicalDecision", "shape": "dot", "title": "Schema for technical decision response data."}, {"color": "#97c2fc", "id": "R40", "label": "TechnicalDecisionUpdate", "shape": "dot", "title": "Schema for updating a technical decision."}, {"color": "#97c2fc", "id": "R41", "label": "Config", "shape": "dot", "title": ""}, {"color": "#97c2fc", "id": "R42", "label": "ExperienceBase", "shape": "dot", "title": "Base schema for past experience data."}, {"color": "#97c2fc", "id": "R43", "label": "ExperienceCreate", "shape": "dot", "title": "Schema for creating a past experience."}, {"color": "#97c2fc", "id": "R44", "label": "Experience", "shape": "dot", "title": "Schema for past experience response data."}, {"color": "#97c2fc", "id": "R45", "label": "ExperienceUpdate", "shape": "dot", "title": "Schema for updating a past experience."}, {"color": "#97c2fc", "id": "R46", "label": "Config", "shape": "dot", "title": ""}, {"color": "#97c2fc", "id": "R47", "label": "TranscriptionResponse", "shape": "dot", "title": "Schema for transcription response data."}, {"color": "#97c2fc", "id": "R48", "label": "StepBase", "shape": "dot", "title": "Base schema for procedure step data."}, {"color": "#97c2fc", "id": "R49", "label": "StepCreate", "shape": "dot", "title": "Schema for creating a procedure step."}, {"color": "#97c2fc", "id": "R50", "label": "Step", "shape": "dot", "title": "Schema for procedure step response data."}, {"color": "#97c2fc", "id": "R51", "label": "ProcedureBase", "shape": "dot", "title": "Base schema for procedure data."}, {"color": "#97c2fc", "id": "R52", "label": "ProcedureCreate", "shape": "dot", "title": "Schema for creating a procedure."}, {"color": "#97c2fc", "id": "R53", "label": "Procedure", "shape": "dot", "title": "Schema for procedure response data."}, {"color": "#97c2fc", "id": "R54", "label": "ProcedureList", "shape": "dot", "title": "Schema for procedure list item response data."}, {"color": "#97c2fc", "id": "R55", "label": "StepBulkCreate", "shape": "dot", "title": "Schema for creating multiple steps at once."}, {"color": "#97c2fc", "id": "R56", "label": "ProcedureUpdate", "shape": "dot", "title": "Schema for updating a procedure."}, {"color": "#97c2fc", "id": "R57", "label": "StepUpdate", "shape": "dot", "title": "Schema for updating a procedure step."}, {"color": "#97c2fc", "id": "R58", "label": "Config", "shape": "dot", "title": ""}, {"color": "#97c2fc", "id": "R59", "label": "Config", "shape": "dot", "title": ""}, {"color": "#97c2fc", "id": "R60", "label": "Config", "shape": "dot", "title": ""}, {"color": "#97c2fc", "id": "R61", "label": "ThoughtProcessingError", "shape": "dot", "title": "Exception raised when there is an error processing a thought."}, {"color": "#97c2fc", "id": "R62", "label": "ThoughtNotFoundError", "shape": "dot", "title": "Exception raised when a thought is not found."}, {"color": "#97c2fc", "id": "R63", "label": "DatabaseError", "shape": "dot", "title": "Exception raised when there is a database error."}, {"color": "#97c2fc", "id": "R64", "label": "OllamaServiceError", "shape": "dot", "title": "Exception raised when there is an error with the Ollama service."}, {"color": "#97c2fc", "id": "R65", "label": "__init__", "shape": "dot", "title": ""}, {"color": "#97c2fc", "id": "R66", "label": "__init__", "shape": "dot", "title": ""}, {"color": "#97c2fc", "id": "R67", "label": "__init__", "shape": "dot", "title": ""}, {"color": "#97c2fc", "id": "R68", "label": "__init__", "shape": "dot", "title": ""}, {"color": "#97c2fc", "id": "R69", "label": "get_config", "shape": "dot", "title": "Get application configuration.\n\nReturns:\n    Configuration dictionary"}, {"color": "#97c2fc", "id": "R70", "label": "get_db", "shape": "dot", "title": "Get database instance.\n\nReturns:\n    Database instance"}, {"color": "#97c2fc", "id": "R71", "label": "get_analyzer", "shape": "dot", "title": "Get text analyzer instance.\n\nReturns:\n    TextAnalyzer instance"}, {"color": "#97c2fc", "id": "R72", "label": "TextAnalyzer", "shape": "dot", "title": ""}, {"color": "#97c2fc", "id": "R73", "label": "__init__", "shape": "dot", "title": "Initialize the text analyzer with the given configuration.\n\nArgs:\n    config: Configuration dictionary containing model, URL, and timeout settings"}, {"color": "#97c2fc", "id": "R74", "label": "analyze_with_ollama", "shape": "dot", "title": "Analyze text to extract insights using Ollama structured output.\n\nArgs:\n    text: The text to analyze\n    \nReturns:\n    A dictionary containing the analysis results"}, {"color": "#97c2fc", "id": "R75", "label": "timeout_handler", "shape": "dot", "title": ""}, {"color": "#97c2fc", "id": "R76", "label": "AudioTranscriber", "shape": "dot", "title": ""}, {"color": "#97c2fc", "id": "R77", "label": "__init__", "shape": "dot", "title": "Initialize the audio transcriber with the given configuration.\n\nArgs:\n    config: Configuration dictionary containing model settings"}, {"color": "#97c2fc", "id": "R78", "label": "transcribe_audio", "shape": "dot", "title": "Transcribe audio file using Whisper.\n\nArgs:\n    audio_file: The audio file to transcribe\n    language: Optional language code to use for transcription\n    word_timestamps: Whether to include word-leve"}, {"color": "#97c2fc", "id": "R79", "label": "process_thought", "shape": "dot", "title": "Process a thought and store it in the database.\n\nArgs:\n    request: The thought request containing the text to process\n    \nReturns:\n    A response containing the processed thought and status"}, {"color": "#97c2fc", "id": "R80", "label": "get_thought", "shape": "dot", "title": "Get a thought by ID.\n\nArgs:\n    thought_id: The ID of the thought to get\n    \nReturns:\n    The thought data"}, {"color": "#97c2fc", "id": "R81", "label": "get_thoughts", "shape": "dot", "title": "Get multiple thoughts.\n\nArgs:\n    limit: Maximum number of thoughts to return\n    offset: Number of thoughts to skip\n    \nReturns:\n    A list of thoughts"}, {"color": "#97c2fc", "id": "R82", "label": "delete_thought", "shape": "dot", "title": "Delete a thought by ID.\n\nArgs:\n    thought_id: The ID of the thought to delete\n    \nReturns:\n    No content on success"}, {"color": "#97c2fc", "id": "R83", "label": "update_thought", "shape": "dot", "title": "Update a thought by ID.\n\nArgs:\n    thought_id: The ID of the thought to update\n    thought_data: The updated thought data\n    \nReturns:\n    The updated thought"}, {"color": "#97c2fc", "id": "R84", "label": "create_technical_decision", "shape": "dot", "title": "Create a new technical decision.\n\nArgs:\n    decision: The technical decision data to create\n    \nReturns:\n    The created technical decision"}, {"color": "#97c2fc", "id": "R85", "label": "get_technical_decisions", "shape": "dot", "title": "Get a list of technical decisions.\n\nArgs:\n    limit: Maximum number of decisions to return\n    offset: Number of decisions to skip\n    tags: Optional list of tags to filter by\n    \nReturns:\n    A list"}, {"color": "#97c2fc", "id": "R86", "label": "get_technical_decision", "shape": "dot", "title": "Get a specific technical decision by ID.\n\nArgs:\n    decision_id: The ID of the technical decision to get\n    \nReturns:\n    The technical decision data"}, {"color": "#97c2fc", "id": "R87", "label": "update_technical_decision", "shape": "dot", "title": "Update a technical decision by ID.\n\nArgs:\n    decision_id: The ID of the technical decision to update\n    decision_data: The updated technical decision data\n    \nReturns:\n    The updated technical dec"}, {"color": "#97c2fc", "id": "R88", "label": "delete_technical_decision", "shape": "dot", "title": "Delete a technical decision by ID.\n\nArgs:\n    decision_id: The ID of the technical decision to delete\n    \nReturns:\n    No content on success"}, {"color": "#97c2fc", "id": "R89", "label": "create_experience", "shape": "dot", "title": "Create a new past experience.\n\nArgs:\n    experience: The experience data to create\n    \nReturns:\n    The created experience"}, {"color": "#97c2fc", "id": "R90", "label": "get_experiences", "shape": "dot", "title": "Get a list of past experiences.\n\nArgs:\n    limit: Maximum number of experiences to return\n    offset: Number of experiences to skip\n    tags: Optional list of tags to filter by\n    importance: Optiona"}, {"color": "#97c2fc", "id": "R91", "label": "get_experience", "shape": "dot", "title": "Get a specific past experience by ID.\n\nArgs:\n    experience_id: The ID of the experience to get\n    \nReturns:\n    The experience data"}, {"color": "#97c2fc", "id": "R92", "label": "update_experience", "shape": "dot", "title": "Update a past experience by ID.\n\nArgs:\n    experience_id: The ID of the experience to update\n    experience_data: The updated experience data\n    \nReturns:\n    The updated experience"}, {"color": "#97c2fc", "id": "R93", "label": "delete_experience", "shape": "dot", "title": "Delete a past experience by ID.\n\nArgs:\n    experience_id: The ID of the experience to delete\n    \nReturns:\n    No content on success"}, {"color": "#97c2fc", "id": "R94", "label": "transcribe_audio", "shape": "dot", "title": "Transcribe an audio file using Whisper.\n\nArgs:\n    audio: The audio file to transcribe\n    language: Optional language code to use for transcription\n    \nReturns:\n    A response containing the transcr"}, {"color": "#97c2fc", "id": "R95", "label": "create_procedure", "shape": "dot", "title": "Create a new procedure.\n\nArgs:\n    procedure: The procedure data to create\n    \nReturns:\n    The created procedure"}, {"color": "#97c2fc", "id": "R96", "label": "get_procedures", "shape": "dot", "title": "Get a list of procedures.\n\nArgs:\n    limit: Maximum number of procedures to return\n    offset: Number of procedures to skip\n    \nReturns:\n    A list of procedures"}, {"color": "#97c2fc", "id": "R97", "label": "get_procedure", "shape": "dot", "title": "Get a specific procedure by ID.\n\nArgs:\n    procedure_id: The ID of the procedure to get\n    \nReturns:\n    The procedure data with its steps"}, {"color": "#97c2fc", "id": "R98", "label": "add_procedure_steps", "shape": "dot", "title": "Add steps to a procedure.\n\nArgs:\n    procedure_id: The ID of the procedure to add steps to\n    steps_data: The steps data to add\n    \nReturns:\n    The added steps"}, {"color": "#97c2fc", "id": "R99", "label": "delete_procedure", "shape": "dot", "title": "Delete a procedure and all its steps by ID.\n\nArgs:\n    procedure_id: The ID of the procedure to delete\n    \nReturns:\n    No content on success"}, {"color": "#97c2fc", "id": "R100", "label": "update_procedure", "shape": "dot", "title": "Update a procedure by ID.\n\nArgs:\n    procedure_id: The ID of the procedure to update\n    procedure_data: The updated procedure data\n    \nReturns:\n    The updated procedure with its steps"}, {"color": "#97c2fc", "id": "R101", "label": "update_procedure_step", "shape": "dot", "title": "Update a procedure step by ID.\n\nArgs:\n    procedure_id: The ID of the procedure the step belongs to\n    step_id: The ID of the step to update\n    step_data: The updated step data\n    \nReturns:\n    The"}]);
+                  edges = new vis.DataSet([{"color": "#9467bd", "from": "R3", "to": "R41"}, {"color": "#9467bd", "from": "R3", "to": "R46"}, {"color": "#9467bd", "from": "R3", "to": "R58"}, {"color": "#9467bd", "from": "R3", "to": "R59"}, {"color": "#9467bd", "from": "R3", "to": "R60"}, {"color": "#9467bd", "from": "R3", "to": "R65"}, {"color": "#9467bd", "from": "R3", "to": "R66"}, {"color": "#9467bd", "from": "R3", "to": "R67"}, {"color": "#9467bd", "from": "R3", "to": "R68"}, {"color": "#9467bd", "from": "R3", "to": "R72"}, {"color": "#9467bd", "from": "R3", "to": "R75"}, {"color": "#9467bd", "from": "R3", "to": "R76"}, {"color": "#2ca02c", "from": "R4", "to": "R6"}, {"color": "#2ca02c", "from": "R5", "to": "R6"}, {"color": "#2ca02c", "from": "R5", "to": "R7"}, {"color": "#2ca02c", "from": "R5", "to": "R8"}, {"color": "#2ca02c", "from": "R5", "to": "R9"}, {"color": "#2ca02c", "from": "R5", "to": "R10"}, {"color": "#2ca02c", "from": "R5", "to": "R11"}, {"color": "#2ca02c", "from": "R5", "to": "R12"}, {"color": "#2ca02c", "from": "R5", "to": "R13"}, {"color": "#2ca02c", "from": "R5", "to": "R14"}, {"color": "#2ca02c", "from": "R5", "to": "R15"}, {"color": "#2ca02c", "from": "R5", "to": "R16"}, {"color": "#2ca02c", "from": "R5", "to": "R17"}, {"color": "#2ca02c", "from": "R5", "to": "R18"}, {"color": "#2ca02c", "from": "R5", "to": "R19"}, {"color": "#2ca02c", "from": "R5", "to": "R20"}, {"color": "#2ca02c", "from": "R5", "to": "R21"}, {"color": "#2ca02c", "from": "R5", "to": "R22"}, {"color": "#2ca02c", "from": "R5", "to": "R23"}, {"color": "#2ca02c", "from": "R5", "to": "R24"}, {"color": "#2ca02c", "from": "R5", "to": "R25"}, {"color": "#2ca02c", "from": "R5", "to": "R26"}, {"color": "#2ca02c", "from": "R5", "to": "R27"}, {"color": "#2ca02c", "from": "R5", "to": "R28"}, {"color": "#2ca02c", "from": "R5", "to": "R29"}, {"color": "#9467bd", "from": "R8", "to": "R80"}, {"color": "#2ca02c", "from": "R8", "to": "R17"}, {"color": "#9467bd", "from": "R9", "to": "R81"}, {"color": "#9467bd", "from": "R10", "to": "R18"}, {"color": "#9467bd", "from": "R11", "to": "R96"}, {"color": "#9467bd", "from": "R12", "to": "R13"}, {"color": "#9467bd", "from": "R12", "to": "R97"}, {"color": "#2ca02c", "from": "R12", "to": "R18"}, {"color": "#9467bd", "from": "R13", "to": "R14"}, {"color": "#9467bd", "from": "R13", "to": "R98"}, {"color": "#9467bd", "from": "R14", "to": "R98"}, {"color": "#9467bd", "from": "R15", "to": "R82"}, {"color": "#9467bd", "from": "R16", "to": "R99"}, {"color": "#9467bd", "from": "R17", "to": "R83"}, {"color": "#9467bd", "from": "R19", "to": "R101"}, {"color": "#9467bd", "from": "R21", "to": "R85"}, {"color": "#9467bd", "from": "R22", "to": "R86"}, {"color": "#2ca02c", "from": "R22", "to": "R23"}, {"color": "#9467bd", "from": "R23", "to": "R87"}, {"color": "#9467bd", "from": "R24", "to": "R88"}, {"color": "#9467bd", "from": "R26", "to": "R90"}, {"color": "#9467bd", "from": "R27", "to": "R91"}, {"color": "#2ca02c", "from": "R27", "to": "R28"}, {"color": "#9467bd", "from": "R28", "to": "R92"}, {"color": "#9467bd", "from": "R29", "to": "R93"}, {"color": "#9467bd", "from": "R32", "to": "R33"}, {"color": "#9467bd", "from": "R32", "to": "R34"}, {"color": "#9467bd", "from": "R33", "to": "R34"}, {"color": "#9467bd", "from": "R37", "to": "R38"}, {"color": "#9467bd", "from": "R37", "to": "R39"}, {"color": "#9467bd", "from": "R38", "to": "R40"}, {"color": "#9467bd", "from": "R41", "to": "R46"}, {"color": "#9467bd", "from": "R41", "to": "R58"}, {"color": "#9467bd", "from": "R41", "to": "R59"}, {"color": "#9467bd", "from": "R41", "to": "R60"}, {"color": "#9467bd", "from": "R41", "to": "R65"}, {"color": "#9467bd", "from": "R41", "to": "R66"}, {"color": "#9467bd", "from": "R41", "to": "R67"}, {"color": "#9467bd", "from": "R41", "to": "R68"}, {"color": "#9467bd", "from": "R41", "to": "R72"}, {"color": "#9467bd", "from": "R41", "to": "R75"}, {"color": "#9467bd", "from": "R41", "to": "R76"}, {"color": "#9467bd", "from": "R42", "to": "R43"}, {"color": "#9467bd", "from": "R42", "to": "R44"}, {"color": "#9467bd", "from": "R42", "to": "R45"}, {"color": "#9467bd", "from": "R43", "to": "R45"}, {"color": "#9467bd", "from": "R46", "to": "R58"}, {"color": "#9467bd", "from": "R46", "to": "R59"}, {"color": "#9467bd", "from": "R46", "to": "R60"}, {"color": "#9467bd", "from": "R46", "to": "R65"}, {"color": "#9467bd", "from": "R46", "to": "R66"}, {"color": "#9467bd", "from": "R46", "to": "R67"}, {"color": "#9467bd", "from": "R46", "to": "R68"}, {"color": "#9467bd", "from": "R46", "to": "R72"}, {"color": "#9467bd", "from": "R46", "to": "R75"}, {"color": "#9467bd", "from": "R46", "to": "R76"}, {"color": "#9467bd", "from": "R48", "to": "R49"}, {"color": "#9467bd", "from": "R48", "to": "R50"}, {"color": "#9467bd", "from": "R48", "to": "R51"}, {"color": "#9467bd", "from": "R48", "to": "R52"}, {"color": "#9467bd", "from": "R48", "to": "R57"}, {"color": "#9467bd", "from": "R49", "to": "R50"}, {"color": "#9467bd", "from": "R49", "to": "R52"}, {"color": "#9467bd", "from": "R49", "to": "R57"}, {"color": "#9467bd", "from": "R50", "to": "R53"}, {"color": "#9467bd", "from": "R51", "to": "R52"}, {"color": "#9467bd", "from": "R51", "to": "R53"}, {"color": "#9467bd", "from": "R52", "to": "R56"}, {"color": "#9467bd", "from": "R53", "to": "R54"}, {"color": "#9467bd", "from": "R56", "to": "R57"}, {"color": "#9467bd", "from": "R58", "to": "R59"}, {"color": "#9467bd", "from": "R58", "to": "R60"}, {"color": "#9467bd", "from": "R58", "to": "R65"}, {"color": "#9467bd", "from": "R58", "to": "R66"}, {"color": "#9467bd", "from": "R58", "to": "R67"}, {"color": "#9467bd", "from": "R58", "to": "R68"}, {"color": "#9467bd", "from": "R58", "to": "R72"}, {"color": "#9467bd", "from": "R58", "to": "R75"}, {"color": "#9467bd", "from": "R58", "to": "R76"}, {"color": "#9467bd", "from": "R59", "to": "R60"}, {"color": "#9467bd", "from": "R59", "to": "R65"}, {"color": "#9467bd", "from": "R59", "to": "R66"}, {"color": "#9467bd", "from": "R59", "to": "R67"}, {"color": "#9467bd", "from": "R59", "to": "R68"}, {"color": "#9467bd", "from": "R59", "to": "R72"}, {"color": "#9467bd", "from": "R59", "to": "R75"}, {"color": "#9467bd", "from": "R59", "to": "R76"}, {"color": "#9467bd", "from": "R60", "to": "R65"}, {"color": "#9467bd", "from": "R60", "to": "R66"}, {"color": "#9467bd", "from": "R60", "to": "R67"}, {"color": "#9467bd", "from": "R60", "to": "R68"}, {"color": "#9467bd", "from": "R60", "to": "R72"}, {"color": "#9467bd", "from": "R60", "to": "R75"}, {"color": "#9467bd", "from": "R60", "to": "R76"}, {"color": "#9467bd", "from": "R61", "to": "R62"}, {"color": "#9467bd", "from": "R65", "to": "R66"}, {"color": "#9467bd", "from": "R65", "to": "R67"}, {"color": "#9467bd", "from": "R65", "to": "R68"}, {"color": "#9467bd", "from": "R65", "to": "R72"}, {"color": "#9467bd", "from": "R65", "to": "R75"}, {"color": "#9467bd", "from": "R65", "to": "R76"}, {"color": "#9467bd", "from": "R66", "to": "R67"}, {"color": "#9467bd", "from": "R66", "to": "R68"}, {"color": "#9467bd", "from": "R66", "to": "R72"}, {"color": "#9467bd", "from": "R66", "to": "R75"}, {"color": "#9467bd", "from": "R66", "to": "R76"}, {"color": "#9467bd", "from": "R67", "to": "R68"}, {"color": "#9467bd", "from": "R67", "to": "R72"}, {"color": "#9467bd", "from": "R67", "to": "R75"}, {"color": "#9467bd", "from": "R67", "to": "R76"}, {"color": "#9467bd", "from": "R68", "to": "R72"}, {"color": "#9467bd", "from": "R68", "to": "R75"}, {"color": "#9467bd", "from": "R68", "to": "R76"}, {"color": "#2ca02c", "from": "R68", "to": "R68"}, {"color": "#9467bd", "from": "R72", "to": "R75"}, {"color": "#9467bd", "from": "R72", "to": "R76"}, {"color": "#9467bd", "from": "R75", "to": "R76"}, {"color": "#9467bd", "from": "R78", "to": "R94"}, {"color": "#9467bd", "from": "R80", "to": "R83"}, {"color": "#2ca02c", "from": "R80", "to": "R80"}, {"color": "#2ca02c", "from": "R81", "to": "R81"}, {"color": "#2ca02c", "from": "R82", "to": "R82"}, {"color": "#2ca02c", "from": "R83", "to": "R83"}, {"color": "#2ca02c", "from": "R84", "to": "R84"}, {"color": "#2ca02c", "from": "R84", "to": "R86"}, {"color": "#2ca02c", "from": "R85", "to": "R85"}, {"color": "#2ca02c", "from": "R86", "to": "R86"}, {"color": "#2ca02c", "from": "R87", "to": "R87"}, {"color": "#2ca02c", "from": "R88", "to": "R88"}, {"color": "#2ca02c", "from": "R89", "to": "R89"}, {"color": "#2ca02c", "from": "R89", "to": "R91"}, {"color": "#2ca02c", "from": "R90", "to": "R90"}, {"color": "#2ca02c", "from": "R91", "to": "R91"}, {"color": "#2ca02c", "from": "R92", "to": "R92"}, {"color": "#2ca02c", "from": "R93", "to": "R93"}, {"color": "#2ca02c", "from": "R94", "to": "R94"}, {"color": "#2ca02c", "from": "R95", "to": "R95"}, {"color": "#2ca02c", "from": "R95", "to": "R97"}, {"color": "#2ca02c", "from": "R96", "to": "R96"}, {"color": "#2ca02c", "from": "R97", "to": "R97"}, {"color": "#2ca02c", "from": "R97", "to": "R98"}, {"color": "#2ca02c", "from": "R97", "to": "R101"}, {"color": "#2ca02c", "from": "R98", "to": "R98"}, {"color": "#2ca02c", "from": "R99", "to": "R99"}, {"color": "#9467bd", "from": "R100", "to": "R101"}, {"color": "#2ca02c", "from": "R100", "to": "R100"}, {"color": "#2ca02c", "from": "R101", "to": "R101"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+                      network.on("stabilizationProgress", function(params) {
+                          document.getElementById('loadingBar').removeAttribute("style");
+                          var maxWidth = 496;
+                          var minWidth = 20;
+                          var widthFactor = params.iterations/params.total;
+                          var width = Math.max(minWidth,maxWidth * widthFactor);
+                          document.getElementById('bar').style.width = width + 'px';
+                          document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+                      });
+                      network.once("stabilizationIterationsDone", function() {
+                          document.getElementById('text').innerHTML = '100%';
+                          document.getElementById('bar').style.width = '496px';
+                          document.getElementById('loadingBar').style.opacity = 0;
+                          // really clean the dom element
+                          setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+                      });
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

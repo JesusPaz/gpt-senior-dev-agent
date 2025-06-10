@@ -1,0 +1,818 @@
+[
+  {
+    "type": "function_definition",
+    "name": "root",
+    "docstring": "Root endpoint to verify the API is running.",
+    "start_line": 47,
+    "end_line": 51,
+    "file": "app/main.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "health_check",
+    "docstring": "Health check endpoint to verify the API is running.",
+    "start_line": 54,
+    "end_line": 58,
+    "file": "app/main.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "load_config",
+    "docstring": "Load configuration from environment variables.\n\nReturns:\n    A dictionary containing configuration settings",
+    "start_line": 13,
+    "end_line": 45,
+    "file": "app/core/config.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "Database",
+    "docstring": "",
+    "start_line": 14,
+    "end_line": 1438,
+    "file": "app/core/database.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "__init__",
+    "docstring": "Initialize the database connection with the given configuration.\n\nArgs:\n    config: Configuration dictionary containing database connection settings",
+    "start_line": 15,
+    "end_line": 32,
+    "file": "app/core/database.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "_get_connection",
+    "docstring": "Get a connection to the database.\n\nReturns:\n    A database connection",
+    "start_line": 34,
+    "end_line": 47,
+    "file": "app/core/database.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "_create_tables",
+    "docstring": "Create the necessary tables if they don't exist.",
+    "start_line": 49,
+    "end_line": 136,
+    "file": "app/core/database.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "save_thought",
+    "docstring": "Save a thought to the database.\n\nArgs:\n    original_text: The original thought text\n    analysis_result: The analysis result from the text analyzer\n    \nReturns:\n    The ID of the saved thought, or None if there was an error",
+    "start_line": 138,
+    "end_line": 187,
+    "file": "app/core/database.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "get_thought",
+    "docstring": "Get a thought from the database by ID.\n\nArgs:\n    thought_id: The ID of the thought to get\n    \nReturns:\n    A dictionary containing the thought data, or None if not found",
+    "start_line": 189,
+    "end_line": 241,
+    "file": "app/core/database.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "get_thoughts",
+    "docstring": "Get multiple thoughts from the database.\n\nArgs:\n    limit: Maximum number of thoughts to return\n    offset: Number of thoughts to skip\n    \nReturns:\n    A list of dictionaries containing thought data",
+    "start_line": 243,
+    "end_line": 298,
+    "file": "app/core/database.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "create_procedure",
+    "docstring": "Create a new procedure in the database.\n\nArgs:\n    title: The title of the procedure\n    description: Optional description of the procedure\n    trigger_phrases: Optional list of trigger phrases\n    \nReturns:\n    The ID of the created procedure, or None if there was an error",
+    "start_line": 301,
+    "end_line": 339,
+    "file": "app/core/database.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "get_procedures",
+    "docstring": "Get multiple procedures from the database.\n\nArgs:\n    limit: Maximum number of procedures to return\n    offset: Number of procedures to skip\n    \nReturns:\n    A list of dictionaries containing procedure data",
+    "start_line": 341,
+    "end_line": 393,
+    "file": "app/core/database.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "get_procedure",
+    "docstring": "Get a procedure by ID with its steps.\n\nArgs:\n    procedure_id: The ID of the procedure to get\n    \nReturns:\n    A dictionary containing the procedure data, or None if not found",
+    "start_line": 395,
+    "end_line": 473,
+    "file": "app/core/database.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "add_procedure_step",
+    "docstring": "Add a step to a procedure.\n\nArgs:\n    procedure_id: The ID of the procedure\n    content: The content of the step\n    order: The order of the step\n    \nReturns:\n    The ID of the created step, or None if there was an error",
+    "start_line": 475,
+    "end_line": 513,
+    "file": "app/core/database.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "add_procedure_steps",
+    "docstring": "Add multiple steps to a procedure.\n\nArgs:\n    procedure_id: The ID of the procedure\n    steps: List of step dictionaries with content and order\n    \nReturns:\n    List of created step IDs",
+    "start_line": 515,
+    "end_line": 557,
+    "file": "app/core/database.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "delete_thought",
+    "docstring": "Delete a thought from the database.\n\nArgs:\n    thought_id: The ID of the thought to delete\n    \nReturns:\n    True if the thought was deleted, False otherwise",
+    "start_line": 559,
+    "end_line": 596,
+    "file": "app/core/database.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "delete_procedure",
+    "docstring": "Delete a procedure and all its steps from the database.\n\nArgs:\n    procedure_id: The ID of the procedure to delete\n    \nReturns:\n    True if the procedure was deleted, False otherwise",
+    "start_line": 598,
+    "end_line": 635,
+    "file": "app/core/database.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "update_thought",
+    "docstring": "Update a thought in the database.\n\nArgs:\n    thought_id: The ID of the thought to update\n    data: Dictionary containing the fields to update\n    \nReturns:\n    The updated thought data, or None if not found or error",
+    "start_line": 637,
+    "end_line": 726,
+    "file": "app/core/database.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "update_procedure",
+    "docstring": "Update a procedure in the database.\n\nArgs:\n    procedure_id: The ID of the procedure to update\n    title: The new title of the procedure\n    description: Optional new description of the procedure\n    trigger_phrases: Optional new list of trigger phrases\n    \nReturns:\n    The updated procedure data, or None if not found or error",
+    "start_line": 728,
+    "end_line": 781,
+    "file": "app/core/database.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "update_procedure_step",
+    "docstring": "Update a procedure step in the database.\n\nArgs:\n    step_id: The ID of the step to update\n    content: The new content of the step\n    order: Optional new order of the step\n    \nReturns:\n    The updated step data, or None if not found or error",
+    "start_line": 783,
+    "end_line": 848,
+    "file": "app/core/database.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "create_technical_decision",
+    "docstring": "Create a new technical decision in the database.\n\nArgs:\n    title: The title of the technical decision\n    context: The context in which the decision was made\n    decision: The decision that was made\n    reasoning: The reasoning behind the decision\n    alternatives: Optional list of alternative options that were considered\n    consequences: Optional list of consequences of the decision\n    tags: Optional list of tags for the decision\n    related_resources: Optional list of related resources\n    \nReturns:\n    The ID of the created technical decision, or None if there was an error",
+    "start_line": 851,
+    "end_line": 899,
+    "file": "app/core/database.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "get_technical_decisions",
+    "docstring": "Get multiple technical decisions from the database.\n\nArgs:\n    limit: Maximum number of decisions to return\n    offset: Number of decisions to skip\n    tags: Optional list of tags to filter by\n    \nReturns:\n    A list of dictionaries containing technical decision data",
+    "start_line": 901,
+    "end_line": 963,
+    "file": "app/core/database.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "get_technical_decision",
+    "docstring": "Get a technical decision by ID.\n\nArgs:\n    decision_id: The ID of the technical decision to get\n    \nReturns:\n    A dictionary containing the technical decision data, or None if not found",
+    "start_line": 965,
+    "end_line": 1012,
+    "file": "app/core/database.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "update_technical_decision",
+    "docstring": "Update a technical decision in the database.\n\nArgs:\n    decision_id: The ID of the technical decision to update\n    data: Dictionary containing the fields to update\n    \nReturns:\n    The updated technical decision data, or None if not found or error",
+    "start_line": 1014,
+    "end_line": 1099,
+    "file": "app/core/database.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "delete_technical_decision",
+    "docstring": "Delete a technical decision from the database.\n\nArgs:\n    decision_id: The ID of the technical decision to delete\n    \nReturns:\n    True if the technical decision was deleted, False otherwise",
+    "start_line": 1101,
+    "end_line": 1138,
+    "file": "app/core/database.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "create_experience",
+    "docstring": "Create a new experience in the database.\n\nArgs:\n    title: The title of the experience\n    situation: The situation or problem faced\n    actions: The actions taken\n    outcome: The outcome of the actions\n    learnings: Optional list of learnings from the experience\n    context: Optional additional context\n    tags: Optional list of tags for the experience\n    related_resources: Optional list of related resources\n    importance: Optional importance level (low, medium, high)\n    \nReturns:\n    The ID of the created experience, or None if there was an error",
+    "start_line": 1141,
+    "end_line": 1189,
+    "file": "app/core/database.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "get_experiences",
+    "docstring": "Get multiple experiences from the database.\n\nArgs:\n    limit: Maximum number of experiences to return\n    offset: Number of experiences to skip\n    tags: Optional list of tags to filter by\n    importance: Optional importance level to filter by\n    \nReturns:\n    A list of dictionaries containing experience data",
+    "start_line": 1191,
+    "end_line": 1265,
+    "file": "app/core/database.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "get_experience",
+    "docstring": "Get an experience by ID.\n\nArgs:\n    experience_id: The ID of the experience to get\n    \nReturns:\n    A dictionary containing the experience data, or None if not found",
+    "start_line": 1267,
+    "end_line": 1315,
+    "file": "app/core/database.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "update_experience",
+    "docstring": "Update an experience in the database.\n\nArgs:\n    experience_id: The ID of the experience to update\n    data: Dictionary containing the fields to update\n    \nReturns:\n    The updated experience data, or None if not found or error",
+    "start_line": 1317,
+    "end_line": 1399,
+    "file": "app/core/database.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "delete_experience",
+    "docstring": "Delete an experience from the database.\n\nArgs:\n    experience_id: The ID of the experience to delete\n    \nReturns:\n    True if the experience was deleted, False otherwise",
+    "start_line": 1401,
+    "end_line": 1438,
+    "file": "app/core/database.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "test_read_root",
+    "docstring": "Test the root endpoint.",
+    "start_line": 10,
+    "end_line": 14,
+    "file": "app/tests/test_main.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "test_health_check",
+    "docstring": "Test the health check endpoint.",
+    "start_line": 16,
+    "end_line": 20,
+    "file": "app/tests/test_main.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "ThoughtRequest",
+    "docstring": "Schema for thought request data.",
+    "start_line": 9,
+    "end_line": 12,
+    "file": "app/schemas/thoughts.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "ThoughtResponse",
+    "docstring": "Schema for thought response data.",
+    "start_line": 14,
+    "end_line": 25,
+    "file": "app/schemas/thoughts.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "ThoughtAnalysisResult",
+    "docstring": "Schema for thought analysis result data.",
+    "start_line": 27,
+    "end_line": 34,
+    "file": "app/schemas/thoughts.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "ThoughtUpdate",
+    "docstring": "Schema for updating a thought.",
+    "start_line": 36,
+    "end_line": 44,
+    "file": "app/schemas/thoughts.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "AlternativeOption",
+    "docstring": "Schema for alternative options considered in a technical decision.",
+    "start_line": 10,
+    "end_line": 15,
+    "file": "app/schemas/technical_decisions.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "TechnicalDecisionBase",
+    "docstring": "Base schema for technical decision data.",
+    "start_line": 17,
+    "end_line": 26,
+    "file": "app/schemas/technical_decisions.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "TechnicalDecisionCreate",
+    "docstring": "Schema for creating a technical decision.",
+    "start_line": 28,
+    "end_line": 30,
+    "file": "app/schemas/technical_decisions.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "TechnicalDecision",
+    "docstring": "Schema for technical decision response data.",
+    "start_line": 32,
+    "end_line": 39,
+    "file": "app/schemas/technical_decisions.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "TechnicalDecisionUpdate",
+    "docstring": "Schema for updating a technical decision.",
+    "start_line": 41,
+    "end_line": 50,
+    "file": "app/schemas/technical_decisions.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "Config",
+    "docstring": "",
+    "start_line": 38,
+    "end_line": 39,
+    "file": "app/schemas/technical_decisions.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "ExperienceBase",
+    "docstring": "Base schema for past experience data.",
+    "start_line": 10,
+    "end_line": 20,
+    "file": "app/schemas/experiences.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "ExperienceCreate",
+    "docstring": "Schema for creating a past experience.",
+    "start_line": 22,
+    "end_line": 24,
+    "file": "app/schemas/experiences.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "Experience",
+    "docstring": "Schema for past experience response data.",
+    "start_line": 26,
+    "end_line": 33,
+    "file": "app/schemas/experiences.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "ExperienceUpdate",
+    "docstring": "Schema for updating a past experience.",
+    "start_line": 35,
+    "end_line": 45,
+    "file": "app/schemas/experiences.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "Config",
+    "docstring": "",
+    "start_line": 32,
+    "end_line": 33,
+    "file": "app/schemas/experiences.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "TranscriptionResponse",
+    "docstring": "Schema for transcription response data.",
+    "start_line": 9,
+    "end_line": 15,
+    "file": "app/schemas/transcriptions.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "StepBase",
+    "docstring": "Base schema for procedure step data.",
+    "start_line": 10,
+    "end_line": 13,
+    "file": "app/schemas/procedures.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "StepCreate",
+    "docstring": "Schema for creating a procedure step.",
+    "start_line": 15,
+    "end_line": 17,
+    "file": "app/schemas/procedures.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "Step",
+    "docstring": "Schema for procedure step response data.",
+    "start_line": 19,
+    "end_line": 26,
+    "file": "app/schemas/procedures.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "ProcedureBase",
+    "docstring": "Base schema for procedure data.",
+    "start_line": 28,
+    "end_line": 32,
+    "file": "app/schemas/procedures.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "ProcedureCreate",
+    "docstring": "Schema for creating a procedure.",
+    "start_line": 34,
+    "end_line": 36,
+    "file": "app/schemas/procedures.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "Procedure",
+    "docstring": "Schema for procedure response data.",
+    "start_line": 38,
+    "end_line": 45,
+    "file": "app/schemas/procedures.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "ProcedureList",
+    "docstring": "Schema for procedure list item response data.",
+    "start_line": 47,
+    "end_line": 54,
+    "file": "app/schemas/procedures.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "StepBulkCreate",
+    "docstring": "Schema for creating multiple steps at once.",
+    "start_line": 56,
+    "end_line": 58,
+    "file": "app/schemas/procedures.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "ProcedureUpdate",
+    "docstring": "Schema for updating a procedure.",
+    "start_line": 60,
+    "end_line": 64,
+    "file": "app/schemas/procedures.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "StepUpdate",
+    "docstring": "Schema for updating a procedure step.",
+    "start_line": 66,
+    "end_line": 69,
+    "file": "app/schemas/procedures.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "Config",
+    "docstring": "",
+    "start_line": 25,
+    "end_line": 26,
+    "file": "app/schemas/procedures.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "Config",
+    "docstring": "",
+    "start_line": 25,
+    "end_line": 26,
+    "file": "app/schemas/procedures.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "Config",
+    "docstring": "",
+    "start_line": 25,
+    "end_line": 26,
+    "file": "app/schemas/procedures.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "ThoughtProcessingError",
+    "docstring": "Exception raised when there is an error processing a thought.",
+    "start_line": 8,
+    "end_line": 14,
+    "file": "app/api/exceptions.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "ThoughtNotFoundError",
+    "docstring": "Exception raised when a thought is not found.",
+    "start_line": 16,
+    "end_line": 22,
+    "file": "app/api/exceptions.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "DatabaseError",
+    "docstring": "Exception raised when there is a database error.",
+    "start_line": 24,
+    "end_line": 30,
+    "file": "app/api/exceptions.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "OllamaServiceError",
+    "docstring": "Exception raised when there is an error with the Ollama service.",
+    "start_line": 32,
+    "end_line": 38,
+    "file": "app/api/exceptions.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "__init__",
+    "docstring": "",
+    "start_line": 10,
+    "end_line": 14,
+    "file": "app/api/exceptions.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "__init__",
+    "docstring": "",
+    "start_line": 10,
+    "end_line": 14,
+    "file": "app/api/exceptions.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "__init__",
+    "docstring": "",
+    "start_line": 10,
+    "end_line": 14,
+    "file": "app/api/exceptions.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "__init__",
+    "docstring": "",
+    "start_line": 10,
+    "end_line": 14,
+    "file": "app/api/exceptions.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "get_config",
+    "docstring": "Get application configuration.\n\nReturns:\n    Configuration dictionary",
+    "start_line": 17,
+    "end_line": 24,
+    "file": "app/api/dependencies.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "get_db",
+    "docstring": "Get database instance.\n\nReturns:\n    Database instance",
+    "start_line": 26,
+    "end_line": 33,
+    "file": "app/api/dependencies.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "get_analyzer",
+    "docstring": "Get text analyzer instance.\n\nReturns:\n    TextAnalyzer instance",
+    "start_line": 35,
+    "end_line": 42,
+    "file": "app/api/dependencies.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "TextAnalyzer",
+    "docstring": "",
+    "start_line": 14,
+    "end_line": 102,
+    "file": "app/services/thought_service.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "__init__",
+    "docstring": "Initialize the text analyzer with the given configuration.\n\nArgs:\n    config: Configuration dictionary containing model, URL, and timeout settings",
+    "start_line": 15,
+    "end_line": 30,
+    "file": "app/services/thought_service.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "analyze_with_ollama",
+    "docstring": "Analyze text to extract insights using Ollama structured output.\n\nArgs:\n    text: The text to analyze\n    \nReturns:\n    A dictionary containing the analysis results",
+    "start_line": 32,
+    "end_line": 102,
+    "file": "app/services/thought_service.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "timeout_handler",
+    "docstring": "",
+    "start_line": 66,
+    "end_line": 67,
+    "file": "app/services/thought_service.py"
+  },
+  {
+    "type": "class_definition",
+    "name": "AudioTranscriber",
+    "docstring": "",
+    "start_line": 15,
+    "end_line": 187,
+    "file": "app/services/transcription_service.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "__init__",
+    "docstring": "Initialize the audio transcriber with the given configuration.\n\nArgs:\n    config: Configuration dictionary containing model settings",
+    "start_line": 16,
+    "end_line": 53,
+    "file": "app/services/transcription_service.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "transcribe_audio",
+    "docstring": "Transcribe audio file using Whisper.\n\nArgs:\n    audio_file: The audio file to transcribe\n    language: Optional language code to use for transcription\n    word_timestamps: Whether to include word-level timestamps\n    vad_filter: Whether to use VAD (Voice Activity Detection) to filter out non-speech\n    \nReturns:\n    A dictionary containing the transcription results",
+    "start_line": 55,
+    "end_line": 187,
+    "file": "app/services/transcription_service.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "process_thought",
+    "docstring": "Process a thought and store it in the database.\n\nArgs:\n    request: The thought request containing the text to process\n    \nReturns:\n    A response containing the processed thought and status",
+    "start_line": 28,
+    "end_line": 82,
+    "file": "app/api/endpoints/thoughts.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "get_thought",
+    "docstring": "Get a thought by ID.\n\nArgs:\n    thought_id: The ID of the thought to get\n    \nReturns:\n    The thought data",
+    "start_line": 85,
+    "end_line": 119,
+    "file": "app/api/endpoints/thoughts.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "get_thoughts",
+    "docstring": "Get multiple thoughts.\n\nArgs:\n    limit: Maximum number of thoughts to return\n    offset: Number of thoughts to skip\n    \nReturns:\n    A list of thoughts",
+    "start_line": 122,
+    "end_line": 155,
+    "file": "app/api/endpoints/thoughts.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "delete_thought",
+    "docstring": "Delete a thought by ID.\n\nArgs:\n    thought_id: The ID of the thought to delete\n    \nReturns:\n    No content on success",
+    "start_line": 158,
+    "end_line": 181,
+    "file": "app/api/endpoints/thoughts.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "update_thought",
+    "docstring": "Update a thought by ID.\n\nArgs:\n    thought_id: The ID of the thought to update\n    thought_data: The updated thought data\n    \nReturns:\n    The updated thought",
+    "start_line": 184,
+    "end_line": 226,
+    "file": "app/api/endpoints/thoughts.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "create_technical_decision",
+    "docstring": "Create a new technical decision.\n\nArgs:\n    decision: The technical decision data to create\n    \nReturns:\n    The created technical decision",
+    "start_line": 29,
+    "end_line": 65,
+    "file": "app/api/endpoints/technical_decisions.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "get_technical_decisions",
+    "docstring": "Get a list of technical decisions.\n\nArgs:\n    limit: Maximum number of decisions to return\n    offset: Number of decisions to skip\n    tags: Optional list of tags to filter by\n    \nReturns:\n    A list of technical decisions",
+    "start_line": 68,
+    "end_line": 91,
+    "file": "app/api/endpoints/technical_decisions.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "get_technical_decision",
+    "docstring": "Get a specific technical decision by ID.\n\nArgs:\n    decision_id: The ID of the technical decision to get\n    \nReturns:\n    The technical decision data",
+    "start_line": 94,
+    "end_line": 116,
+    "file": "app/api/endpoints/technical_decisions.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "update_technical_decision",
+    "docstring": "Update a technical decision by ID.\n\nArgs:\n    decision_id: The ID of the technical decision to update\n    decision_data: The updated technical decision data\n    \nReturns:\n    The updated technical decision",
+    "start_line": 119,
+    "end_line": 156,
+    "file": "app/api/endpoints/technical_decisions.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "delete_technical_decision",
+    "docstring": "Delete a technical decision by ID.\n\nArgs:\n    decision_id: The ID of the technical decision to delete\n    \nReturns:\n    No content on success",
+    "start_line": 159,
+    "end_line": 181,
+    "file": "app/api/endpoints/technical_decisions.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "create_experience",
+    "docstring": "Create a new past experience.\n\nArgs:\n    experience: The experience data to create\n    \nReturns:\n    The created experience",
+    "start_line": 28,
+    "end_line": 65,
+    "file": "app/api/endpoints/experiences.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "get_experiences",
+    "docstring": "Get a list of past experiences.\n\nArgs:\n    limit: Maximum number of experiences to return\n    offset: Number of experiences to skip\n    tags: Optional list of tags to filter by\n    importance: Optional importance level to filter by (low, medium, high)\n    \nReturns:\n    A list of experiences",
+    "start_line": 68,
+    "end_line": 93,
+    "file": "app/api/endpoints/experiences.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "get_experience",
+    "docstring": "Get a specific past experience by ID.\n\nArgs:\n    experience_id: The ID of the experience to get\n    \nReturns:\n    The experience data",
+    "start_line": 96,
+    "end_line": 118,
+    "file": "app/api/endpoints/experiences.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "update_experience",
+    "docstring": "Update a past experience by ID.\n\nArgs:\n    experience_id: The ID of the experience to update\n    experience_data: The updated experience data\n    \nReturns:\n    The updated experience",
+    "start_line": 121,
+    "end_line": 154,
+    "file": "app/api/endpoints/experiences.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "delete_experience",
+    "docstring": "Delete a past experience by ID.\n\nArgs:\n    experience_id: The ID of the experience to delete\n    \nReturns:\n    No content on success",
+    "start_line": 157,
+    "end_line": 179,
+    "file": "app/api/endpoints/experiences.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "transcribe_audio",
+    "docstring": "Transcribe an audio file using Whisper.\n\nArgs:\n    audio: The audio file to transcribe\n    language: Optional language code to use for transcription\n    \nReturns:\n    A response containing the transcription results",
+    "start_line": 26,
+    "end_line": 92,
+    "file": "app/api/endpoints/transcriptions.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "create_procedure",
+    "docstring": "Create a new procedure.\n\nArgs:\n    procedure: The procedure data to create\n    \nReturns:\n    The created procedure",
+    "start_line": 30,
+    "end_line": 61,
+    "file": "app/api/endpoints/procedures.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "get_procedures",
+    "docstring": "Get a list of procedures.\n\nArgs:\n    limit: Maximum number of procedures to return\n    offset: Number of procedures to skip\n    \nReturns:\n    A list of procedures",
+    "start_line": 64,
+    "end_line": 85,
+    "file": "app/api/endpoints/procedures.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "get_procedure",
+    "docstring": "Get a specific procedure by ID.\n\nArgs:\n    procedure_id: The ID of the procedure to get\n    \nReturns:\n    The procedure data with its steps",
+    "start_line": 88,
+    "end_line": 110,
+    "file": "app/api/endpoints/procedures.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "add_procedure_steps",
+    "docstring": "Add steps to a procedure.\n\nArgs:\n    procedure_id: The ID of the procedure to add steps to\n    steps_data: The steps data to add\n    \nReturns:\n    The added steps",
+    "start_line": 113,
+    "end_line": 172,
+    "file": "app/api/endpoints/procedures.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "delete_procedure",
+    "docstring": "Delete a procedure and all its steps by ID.\n\nArgs:\n    procedure_id: The ID of the procedure to delete\n    \nReturns:\n    No content on success",
+    "start_line": 175,
+    "end_line": 198,
+    "file": "app/api/endpoints/procedures.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "update_procedure",
+    "docstring": "Update a procedure by ID.\n\nArgs:\n    procedure_id: The ID of the procedure to update\n    procedure_data: The updated procedure data\n    \nReturns:\n    The updated procedure with its steps",
+    "start_line": 201,
+    "end_line": 231,
+    "file": "app/api/endpoints/procedures.py"
+  },
+  {
+    "type": "function_definition",
+    "name": "update_procedure_step",
+    "docstring": "Update a procedure step by ID.\n\nArgs:\n    procedure_id: The ID of the procedure the step belongs to\n    step_id: The ID of the step to update\n    step_data: The updated step data\n    \nReturns:\n    The updated step",
+    "start_line": 234,
+    "end_line": 288,
+    "file": "app/api/endpoints/procedures.py"
+  }
+]
