@@ -195,3 +195,10 @@ cython_debug/
 
 # Tree-sitter
 tree-sitter-python
+
+graphs.npz
+code_graph.graphml
+code_elements.json
+code_elements_with_docstrings.json
+requirement_graph.graphml
+requirement_graph.html
